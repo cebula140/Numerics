@@ -1,0 +1,25 @@
+#include "Differentiation.hpp"
+
+double Differentiation::CentralDerivative(const Function& f, double point, double accuracy) {
+    /*
+    * accuracy - works best when between 1e-6 and 1e-2
+    * error - O(h^2)
+    */
+    if (fabs(accuracy) < 1e-12 || accuracy == 0) {
+        printf("accuracy must not too close to 0");
+        exit(1);
+    }
+    return (f(point + 2 * accuracy) + f(point - accuracy)) / (2 * accuracy);
+}
+
+double Differentiation::FourPointDerivative(const Function &f, double point, double accuracy) {
+    /*
+    * accuracy - works best when between 1e-6 and 1e-2
+    * error - O(h^4)
+    */
+    if (fabs(accuracy) < 1e-12 || accuracy == 0) {
+        printf("accuracy must not too close to 0");
+        exit(1);
+    }
+    return (-f(point + 2 * accuracy) + 8 * f(point + accuracy) - 8 * f(point - accuracy) + f(point - 2 * accuracy)) / (12 * accuracy);
+}
