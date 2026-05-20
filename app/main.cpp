@@ -1,6 +1,5 @@
 #include <stdio.h>
-#include "Differentiation.hpp"
-#include "Integration.hpp"
+#include <Numerics>
 
 int main() {
 	Function f([](double x) { return x * x; });
