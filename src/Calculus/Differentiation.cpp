@@ -1,4 +1,6 @@
-#include "Differentiation.hpp"
+#include <Numerics/Calculus/Differentiation.hpp>
+#include <Numerics/Calculus/Integration.hpp>
+#include <Numerics/Calculus/RootFinding.hpp>
 
 double Differentiation::CentralDerivative(const Function& f, double point, double accuracy) {
     /*

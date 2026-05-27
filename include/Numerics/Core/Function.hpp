@@ -1,6 +1,7 @@
 #pragma once
 #include <functional>
 
+
 class Function {
 private:
     std::function<double(double)> func;

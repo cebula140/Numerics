@@ -1,7 +1,7 @@
 #pragma once
-#include "Function.hpp"
+#include "Numerics/Core/Function.hpp"
 
 namespace RootFinding {
-    double FindRoots(const Function& fdouble accuracy);
-
+    double NewtonMethod(const Function&, double accuracy = 4);
+    double BisectionMehthod(const Function& f, double accuracy, double a, double b);
 }
