@@ -2,15 +2,14 @@
 #include <Numerics/Calculus/Differentiation.hpp>
 #include <Numerics/Calculus/Integration.hpp>
 #include <Numerics/Calculus/RootFinding.hpp>
+#include <cmath>
+#define M_PI 3.14159265358979323846
 
 int main() {
-	Function f([](double x) { return x * x - 2.0; });
+	Function f([](double x) { return 1/sqrt(x); });
 
-	double calka = Integration::SimpsonIntegral(f, 0, 3, 1000);
-	double pochodna = Differentiation::FourPointDerivative(f, 2, 0.01f);
-	double pierwiastek2 = RootFinding::BisectionMehthod(f, 0.001, 0,2);
-	double pierwiastek = RootFinding::NewtonMethod(f);
+	double calka = Integration::AdaptiveSimpsonIntegral(f, 0, 1, 0.1f);
 
-	printf("calka to : %f \npochodna to: %f\npierwiastek to: %f i %f", calka, pochodna, pierwiastek,pierwiastek2);
+	printf("calka to : %f", calka);
 	return 0;
 }
