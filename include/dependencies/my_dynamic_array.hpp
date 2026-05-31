@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <initializer_list>
-
+#include <vector>
 
 
 
@@ -57,6 +57,16 @@ public:
 
         for (size_t i = 0; i < size; i++) {
             data[i] = other.data[i];
+        }
+    }
+
+    my_dynamic_array(const std::vector<T>& v) {
+        size_t n = v.size();
+        data = new T[n];
+        size = n;
+
+        for (size_t i = 0; i < n; ++i) {
+            data[i] = v[i];
         }
     }
 
