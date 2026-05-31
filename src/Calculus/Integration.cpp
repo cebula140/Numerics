@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <cstdio>
 #include <string>
+#include <utility>
 #include <dependencies/my_map.hpp>
 double Integration::SimpsonIntegral(const Function &f, double a, double b, int accuracy) {
     /*
@@ -44,7 +45,7 @@ std::string make_key(double a, double b)
     return r(a) + "|" + r(b);
 }
 
-my_map cache;
+my_map<double> cache;
 
 
 double Integration::AdaptiveSimpsonIntegral(const Function& f, double a, double b, double epsilon, int depth) {

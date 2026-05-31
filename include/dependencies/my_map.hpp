@@ -1,19 +1,14 @@
-#include <vector>
+#include <dependencies/my_dynamic_array.hpp>
 #include <string>
 #include <iostream>
 
+#pragma once
 using namespace std;
 
 enum State {
     EMPTY,
     OCCUPIED,
     DELETED
-};
-
-struct Slot {
-    string key;
-    double value;
-    State state = EMPTY;
 };
 
 size_t my_hash(const string& input) {
@@ -33,41 +28,66 @@ size_t my_hash(const string& input) {
     return hash;
 }
 
+const double _capacity_factor = 2;
+
+
+template <typename T>
 class my_map {
 private:
-    vector<Slot> data;
-    size_t capacity = 256;
-    size_t size = 0;
+    struct Slot {
+        std::string key;
+        T value{};
+        State state = EMPTY;
+    };
 
-    size_t idx(const string& key) {
+    my_dynamic_array<Slot> data;
+    size_t capacity = 256;
+    size_t m_size = 0;
+
+    size_t idx(const std::string& key) const {
         return my_hash(key) % capacity;
     }
 
-    void resize_map() {
-        if ((double)(size + 1) / capacity < 0.75) return;
+    double load_factor() const {
+        return (double)(m_size + 1) / capacity;
+    }
 
-        vector<Slot> old = data;
+    void rehash() {
+        my_dynamic_array<Slot> old = data;
 
-        capacity *= 2;
-        data.clear();
-        data.resize(capacity);
-        size = 0;
+        capacity *= _capacity_factor;
+        data = my_dynamic_array<Slot>();
+        for (size_t i = 0; i < capacity; i++) {
+            data.insert_back(Slot{});
+        }
 
-        for (auto& s : old) {
-            if (s.state == OCCUPIED) {
-                insert_slot(s.key, s.value);
+        m_size = 0;
+
+        for (size_t i = 0; i < old.get_size(); i++) {
+            if (old[i].state == OCCUPIED) {
+                insert_slot(old[i].key, old[i].value);
             }
+        }
+    }
+
+    void maybe_reget_size() {
+        if (load_factor() > 0.75) {
+            rehash();
         }
     }
 
 public:
     my_map() {
-        data.resize(capacity);
+        for (size_t i = 0; i < capacity; i++) {
+            data.insert_back(Slot{});
+        }
     }
 
-    void insert_slot(const string& key, double value) {
-        size_t start = idx(key);
-        size_t i = start;
+    void insert_slot(const std::string& key, const T& value) {
+        maybe_reget_size();
+
+        size_t i = idx(key);
+        size_t start = i;
 
         do {
             if (data[i].state == EMPTY || data[i].state == DELETED) {
@@ -75,8 +95,7 @@ public:
                 data[i].value = value;
                 data[i].state = OCCUPIED;
 
-                size++;
-                resize_map();
+                m_size++;
                 return;
             }
 
@@ -90,9 +109,9 @@ public:
         } while (i != start);
     }
 
-    double* find(const string& key) {
-        size_t start = idx(key);
-        size_t i = start;
+    T* find(const std::string& key) {
+        size_t i = idx(key);
+        size_t start = i;
 
         do {
             if (data[i].state == EMPTY)
@@ -108,22 +127,22 @@ public:
         return nullptr;
     }
 
-    double& operator[](const string& key) {
-        size_t start = idx(key);
-        size_t i = start;
+    T& operator[](const std::string& key) {
+        size_t i = idx(key);
+        size_t start = i;
 
         do {
             if (data[i].state == OCCUPIED && data[i].key == key)
                 return data[i].value;
 
             if (data[i].state == EMPTY || data[i].state == DELETED) {
+                maybe_reget_size();
+
                 data[i].key = key;
-                data[i].value = 0;
+                data[i].value = T{};
                 data[i].state = OCCUPIED;
 
-                size++;
-                resize_map();
-
+                m_size++;
                 return data[i].value;
             }
 
@@ -131,21 +150,20 @@ public:
 
         } while (i != start);
 
-        throw runtime_error("my_map full");
+        throw std::runtime_error("map full");
     }
 
-    void delete_slot(const string& key) {
-        size_t start = idx(key);
-        size_t i = start;
+    void delete_slot(const std::string& key) {
+        size_t i = idx(key);
+        size_t start = i;
 
         do {
             if (data[i].state == EMPTY)
                 return;
 
             if (data[i].state == OCCUPIED && data[i].key == key) {
-                data[i].key = "";
-                data[i].value = 0;
                 data[i].state = DELETED;
+                m_size--;
                 return;
             }
 
