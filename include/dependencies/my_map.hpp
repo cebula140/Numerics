@@ -5,6 +5,7 @@
 #pragma once
 using namespace std;
 
+// open-addressing slot states
 enum State {
     EMPTY,
     OCCUPIED,
@@ -19,6 +20,7 @@ size_t my_hash(const string& input) {
         hash = hash * 131 + c;
     }
 
+    // splitmix64-style avalanche: mix bits so similar keys scatter well
     hash ^= hash >> 30;
     hash *= 0xbf58476d1ce4e5b9ULL;
     hash ^= hash >> 27;
@@ -52,6 +54,7 @@ private:
         return (double)(m_size + 1) / capacity;
     }
 
+    // double the table and re-insert all occupied slots
     void rehash() {
         my_dynamic_array<Slot> old = data;
 
@@ -83,6 +86,7 @@ public:
         }
     }
 
+    // linear probing: insert into first empty or deleted slot
     void insert_slot(const std::string& key, const T& value) {
         maybe_reget_size();
 
@@ -109,6 +113,7 @@ public:
         } while (i != start);
     }
 
+    // linear probing: stop at first empty slot (key not found)
     T* find(const std::string& key) {
         size_t i = idx(key);
         size_t start = i;
@@ -153,6 +158,7 @@ public:
         throw std::runtime_error("map full");
     }
 
+    // mark slot as DELETED so linear probing stays intact
     void delete_slot(const std::string& key) {
         size_t i = idx(key);
         size_t start = i;

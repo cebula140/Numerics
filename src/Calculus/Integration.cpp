@@ -35,6 +35,7 @@ double Integration::SimpsonIntegral(const Function &f, double a, double b, int a
 }
 
 
+// turn interval [a,b] into a string key for caching
 std::string make_key(double a, double b)
 {
     auto r = [](double x)
@@ -45,12 +46,13 @@ std::string make_key(double a, double b)
     return r(a) + "|" + r(b);
 }
 
+// memoization cache shared across recursive calls
 my_map<double> cache;
-
 
 double Integration::AdaptiveSimpsonIntegral(const Function& f, double a, double b, double epsilon, int depth) {
     const int accuracy = 16;
 
+    // stop recursion at 50 levels deep, fall back to plain Simpson
     if (depth > 50)
         return SimpsonIntegral(f, a, b, accuracy);
 
@@ -75,6 +77,7 @@ double Integration::AdaptiveSimpsonIntegral(const Function& f, double a, double 
     if (!std::isfinite(S) || !std::isfinite(S1) || !std::isfinite(S2))
         return S;
 
+    // standard adaptive Simpson error estimate
     double error = std::abs(S1 + S2 - S) / 15.0;
 
     double result;
