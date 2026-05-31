@@ -2,6 +2,9 @@
 #include <iostream>
 #include <initializer_list>
 
+
+
+
 template <typename T>
 class my_dynamic_array {
 private:
@@ -110,3 +113,15 @@ public:
         delete[] data;
     }
 };
+
+template <typename T>
+T* dynamic_array_to_static(my_dynamic_array<T>& array) {
+    size_t n = array.getSize();
+    T* static_array = new T[n];
+
+    for (size_t i = 0; i < n; ++i) {
+        static_array[i] = array[i];
+    }
+
+    return static_array;
+}
