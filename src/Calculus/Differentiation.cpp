@@ -1,12 +1,14 @@
+#include <cstdio>
+#include <cstdlib>
+#include <cmath>
 #include <Numerics/Calculus/Differentiation.hpp>
 #include <Numerics/Calculus/Integration.hpp>
-#include <Numerics/Calculus/RootFinding.hpp>
 
 double CentralDerivative(const Function& f, double point, double accuracy) {
     /*
     * error - O(h^2)
     */
-    if (fabs(accuracy) < 1e-12 || accuracy == 0) {
+    if (std::abs(accuracy) < 1e-12 || accuracy == 0) {
         printf("accuracy must not too close to 0");
         exit(1);
     }
@@ -17,7 +19,7 @@ double FourPointDerivative(const Function &f, double point, double accuracy) {
     /*
     * error - O(h^4)
     */
-    if (fabs(accuracy) < 1e-12 || accuracy == 0) {
+    if (std::abs(accuracy) < 1e-12 || accuracy == 0) {
         printf("accuracy must not too close to 0");
         exit(1);
     }

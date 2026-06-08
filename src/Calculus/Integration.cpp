@@ -5,6 +5,7 @@
 #include <cstdio>
 #include <string>
 #include <utility>
+#include <cmath>
 #include <dependencies/my_map.hpp>
 double Integration::SimpsonIntegral(const Function &f, double a, double b, int accuracy) {
     /*
