@@ -49,7 +49,7 @@ public:
         size = size_;
         capacity = size;
         data = new T[capacity];
-        for (int i = 0; i < size; i++) {
+        for (size_t i = 0; i < size; i++) {
             data[i] = init_value;
         }
     }
