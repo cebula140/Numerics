@@ -33,7 +33,28 @@ public:
         data = new T[capacity];
     }
 
-    size_t get_size() {
+    my_dynamic_array(size_t size_) {
+        size = size_;
+        capacity = size;
+        data = new T[capacity];
+    }
+    my_dynamic_array(T init_value) {
+        size = capacity;
+        data = new T[capacity];
+        for (int i = 0; i < capacity; i++) {
+            data[i] = init_value;
+        }
+    }
+    my_dynamic_array(size_t size_, T init_value) {
+        size = size_;
+        capacity = size;
+        data = new T[capacity];
+        for (int i = 0; i < size; i++) {
+            data[i] = init_value;
+        }
+    }
+
+    size_t get_size() const {
         return size;
     }
 
@@ -64,7 +85,7 @@ public:
         size_t n = v.size();
         data = new T[n];
         size = n;
-
+        capacity = n;
         for (size_t i = 0; i < n; ++i) {
             data[i] = v[i];
         }
@@ -126,7 +147,7 @@ public:
 
 template <typename T>
 T* dynamic_array_to_static(my_dynamic_array<T>& array) {
-    size_t n = array.getSize();
+    size_t n = array.get_size();
     T* static_array = new T[n];
 
     for (size_t i = 0; i < n; ++i) {

@@ -20,6 +20,5 @@ A lightweight numerical library in C++ 23 made for learning. Designed to be simp
 
 ```
 cmake -B build
-cmake --build build
 ```
 

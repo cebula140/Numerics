@@ -1,15 +1,15 @@
 #include <Numerics/Calculus/Differentiation.hpp>
 #include <Numerics/Calculus/Integration.hpp>
 #include <Numerics/Calculus/RootFinding.hpp>
-
+#include <dependencies/my_dynamic_array.hpp>
 
 double RootFinding::NewtonMethod(const Function& f, double accuracy)
 {
 	// start with a fixed initial guess x=1
-	double xi = 1 - (f(1)/ Differentiation::FourPointDerivative(f, 1, 0.01f));
+	double xi = 1 - (f(1)/ Differentiation::Derivative(f, 1, 0.01f));
 	for (int i = 1; i < accuracy; i++) 
 	{
-		xi = xi - (f(xi) / Differentiation::FourPointDerivative(f, xi, 0.01f));
+		xi = xi - (f(xi) / Differentiation::Derivative(f, xi, 0.01f));
 	}
 
 	return xi;
@@ -30,3 +30,11 @@ double RootFinding::BisectionMehthod(const Function& f, double epsilon, double a
 	}
 	return xi;
 }
+
+//double RootFinding::AberthMethod(const Function& f, double epsilon) {
+//
+//}
+//
+//my_dynamic_array<std::pair<double, double>> IsolateRoots(const Function& f) {
+//
+//}
