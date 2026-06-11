@@ -1,12 +1,13 @@
 #include <Numerics/Calculus/Differentiation.hpp>
 #include <Numerics/Calculus/Integration.hpp>
 #include <Numerics/Calculus/RootFinding.hpp>
+#include <dependencies/my_map.hpp>
 #include <cstdlib>
 #include <cstdio>
 #include <string>
 #include <utility>
 #include <cmath>
-#include <dependencies/my_map.hpp>
+
 double SimpsonIntegral(const Function &f, double a, double b, int accuracy) {
     /*
     * accuracy - the higher the better

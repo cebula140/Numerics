@@ -20,12 +20,12 @@ int main() {
     auto integral = Integration::Integrate(function, -2, 3);
     std::cout << "The Integral over ";
     print_domain(a, b);
-    std::cout << "is: " << integral;
+    std::cout << " is: " << integral;
     std::cout << '\n';
 
     double x = 5;
     auto derivative = Differentiation::Derivative(function, x);
-    auto second_derivative = Differentiation::Derivative(function, x);
+    auto second_derivative = Differentiation::SecondDerivative(function, x);
     std::cout << "The derivative is: " << derivative << ", and the second derivative is: " << second_derivative;
     std::cout << '\n';
 }

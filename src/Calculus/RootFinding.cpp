@@ -11,7 +11,7 @@ double NewtonMethod(const Function& f, double x0, double accuracy)
     return xi;
 }
 
-double BisectionMehthod(const Function& f, double epsilon, double a, double b) {
+double BisectionMehthod(const Function& f, double a, double b, double epsilon) {
     if (f(a) * f(b) >= 0) return -676767;
 
     double xi = (a + b) / 2;
@@ -52,7 +52,7 @@ my_dynamic_array<std::pair<double, double>> RootFinding::IsolatePossibleRoots(co
 }
 
 my_dynamic_array<double> RootFinding::FindRoots(const Function& f) {
-    auto intervals = IsolatePossibleRoots(f, 1e3, 1e-1);
+    auto intervals = IsolatePossibleRoots(f);
     // add reapeted polynomials support
     // and is kinda slow
     my_dynamic_array<double> roots;

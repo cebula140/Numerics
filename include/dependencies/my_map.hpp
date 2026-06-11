@@ -1,8 +1,8 @@
+#pragma once
 #include <dependencies/my_dynamic_array.hpp>
 #include <string>
 #include <iostream>
 
-#pragma once
 using namespace std;
 
 // open-addressing slot states

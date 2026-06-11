@@ -6,3 +6,5 @@
 #include "Numerics/Calculus/Integration.hpp"
 #include "Numerics/Calculus/RootFinding.hpp"
 #include "Numerics/Algebra/Matrix.hpp"
+#include "dependencies/my_map.hpp"
+#include "dependencies/my_dynamic_array.hpp"

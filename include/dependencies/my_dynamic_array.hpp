@@ -52,7 +52,7 @@ public:
     my_dynamic_array(size_t size_) {
         size = size_;
         capacity = size;
-        data = new T[capacity];
+        data = new T[capacity]{};
     }
     my_dynamic_array(T init_value) {
         size = capacity;
@@ -61,9 +61,10 @@ public:
             data[i] = init_value;
         }
     }
+
     my_dynamic_array(size_t size_, T init_value) {
         size = size_;
-        capacity = size;
+        capacity = size_;
         data = new T[capacity];
         for (size_t i = 0; i < size; i++) {
             data[i] = init_value;
