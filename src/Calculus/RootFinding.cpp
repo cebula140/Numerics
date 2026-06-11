@@ -1,4 +1,5 @@
 #include <utility>
+#include <cmath>
 #include <dependencies/my_dynamic_array.hpp>
 #include <Numerics.hpp>
 
