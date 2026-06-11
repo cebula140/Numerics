@@ -41,9 +41,13 @@ target_link_libraries(demo PRIVATE numerics)
 # -----------------------------
 if (MSVC)
     target_compile_options(numerics PRIVATE /W4)
+       set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /fsanitize=address")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /fsanitize=address")
 else()
     target_compile_options(numerics PRIVATE -Wall -Wextra -Wpedantic)
 endif()
+
+
 
 # -----------------------------
 # Debug / Release flags

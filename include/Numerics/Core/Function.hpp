@@ -11,6 +11,10 @@ public:
         this->func = function;
     }
 
+    template <typename F>
+    Function(F f) : func(f) {}
+
+
     double operator()(double x) const {
         return func(x);
     }

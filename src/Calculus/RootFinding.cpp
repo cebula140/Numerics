@@ -11,7 +11,7 @@ double NewtonMethod(const Function& f, double x0, double accuracy)
     return xi;
 }
 
-double RootFinding::BisectionMehthod(const Function& f, double epsilon, double a, double b) {
+double BisectionMehthod(const Function& f, double epsilon, double a, double b) {
     if (f(a) * f(b) >= 0) return -676767;
 
     double xi = (a + b) / 2;
@@ -25,7 +25,7 @@ double RootFinding::BisectionMehthod(const Function& f, double epsilon, double a
     return xi;
 }
 
-my_dynamic_array<std::pair<double, double>> IsolatePossibleRoots(const Function& f, double domain, double stepSize) {
+my_dynamic_array<std::pair<double, double>> RootFinding::IsolatePossibleRoots(const Function& f, double domain, double stepSize) {
     double domainStart = -domain;
     double domainEnd = domain;
     double prevX = domainStart;
@@ -40,7 +40,7 @@ my_dynamic_array<std::pair<double, double>> IsolatePossibleRoots(const Function&
             intervals.insert_back(currInterval);
         }
 
-        if (std::abs(prevY) < 1e-12) {
+        if (std::abs(prevY) < 1e-18) {
             currInterval = {prevX, prevX};
             intervals.insert_back(currInterval);
         }
@@ -51,11 +51,12 @@ my_dynamic_array<std::pair<double, double>> IsolatePossibleRoots(const Function&
     return intervals;
 }
 
-double* RootFinding::FindRoots(const Function& f) {
-    auto intervals = IsolatePossibleRoots(f, 1000, 0.01);
-    static double roots[1000];
+my_dynamic_array<double> RootFinding::FindRoots(const Function& f) {
+    auto intervals = IsolatePossibleRoots(f, 1e4, 1e-3);
+    // add non univariete polynomial support
+    my_dynamic_array<double> roots;
     for (size_t i = 0; i < intervals.get_size(); i++) {
-        roots[i] = NewtonMethod(f, (intervals[i].first + intervals[i].second) / 2, 3);
+        roots.insert_back(NewtonMethod(f, (intervals[i].first + intervals[i].second) / 2));
     }
     return roots;
 }
