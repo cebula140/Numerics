@@ -21,7 +21,7 @@ file(GLOB_RECURSE NUMERICS_SOURCES
     ${PROJECT_SOURCE_DIR}/src/*.cpp
 )
 
-add_library(numerics STATIC ${NUMERICS_SOURCES})
+add_library(numerics STATIC ${NUMERICS_SOURCES} "app/examples.cpp")
 
 target_include_directories(numerics
     PUBLIC ${PROJECT_SOURCE_DIR}/include
@@ -32,7 +32,7 @@ target_include_directories(numerics
 # -----------------------------
 add_executable(demo
     ${PROJECT_SOURCE_DIR}/app/main.cpp
-)
+ "app/examples.cpp")
 
 target_link_libraries(demo PRIVATE numerics)
 

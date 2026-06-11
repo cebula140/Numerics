@@ -1,0 +1,5 @@
+#pragma once
+
+void print_domain(double a, double b) {
+    std::cout << "[" << a << ", " << b << "]";
+}
