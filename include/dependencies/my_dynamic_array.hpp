@@ -183,9 +183,9 @@ public:
 
         for (size_t i = 0; i < size; i++) {
 
-            if constexpr (std::is_same_v<T, std::pair<double, double>> ||
-                std::is_same_v<T, std::pair<int, int>> ||
-                std::is_same_v<T, std::pair<size_t, size_t>>) {
+            if constexpr (std::is_same_v<T, std::pair<double, double> > ||
+                std::is_same_v<T, std::pair<int, int> > ||
+                std::is_same_v<T, std::pair<size_t, size_t> >) {
 
                 std::cout << "(" << data[i].first << ", " << data[i].second << ")";
             }

@@ -38,7 +38,7 @@ double SimpsonIntegral(const Function &f, double a, double b, int accuracy) {
 
 
 // turn interval [a,b] into a string key for caching
-std::string make_key(double a, double b)
+static std::string make_key(double a, double b)
 {
     auto r = [](double x)
         {

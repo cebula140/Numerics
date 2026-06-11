@@ -1,8 +1,8 @@
 #pragma once
+#pragma once
 #include <dependencies/my_dynamic_array.hpp>
 #include <string>
 #include <iostream>
-
 using namespace std;
 
 // open-addressing slot states
@@ -12,7 +12,7 @@ enum State {
     DELETED
 };
 
-size_t my_hash(const string& input) {
+inline size_t my_hash(const string& input) {
     if (input.empty()) return 0;
 
     size_t hash = 0;

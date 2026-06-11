@@ -8,5 +8,5 @@ double BisectionMehthod(const Function& f, double a, double b, double epsilon = 
 
 namespace RootFinding {
     my_dynamic_array<double> FindRoots(const Function& f);
-    my_dynamic_array<std::pair<double, double>> IsolatePossibleRoots(const Function& f, double domain = 1e4, double stepSize = 1e-1);
+    my_dynamic_array<std::pair<double, double> > IsolatePossibleRoots(const Function& f, double domain = 1e4, double stepSize = 1e-1);
 }
