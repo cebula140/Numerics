@@ -5,7 +5,6 @@ A lightweight numerical library in C++ 23 made for learning. Designed to be simp
 ## Algorithms
 
 ### Differentiation
-- Central derivative (2-point, O(h²))
 - Four-point derivative (O(h⁴))
 
 ### Integration
@@ -14,7 +13,6 @@ A lightweight numerical library in C++ 23 made for learning. Designed to be simp
 
 ### Root finding
 - Newton's method
-- Bisection method
 
 ## Build
 

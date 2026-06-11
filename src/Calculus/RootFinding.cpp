@@ -40,7 +40,7 @@ my_dynamic_array<std::pair<double, double>> RootFinding::IsolatePossibleRoots(co
             intervals.insert_back(currInterval);
         }
 
-        if (std::abs(prevY) < 1e-18) {
+        if (std::abs(prevY) < 1e-16) {
             currInterval = {prevX, prevX};
             intervals.insert_back(currInterval);
         }
@@ -52,8 +52,9 @@ my_dynamic_array<std::pair<double, double>> RootFinding::IsolatePossibleRoots(co
 }
 
 my_dynamic_array<double> RootFinding::FindRoots(const Function& f) {
-    auto intervals = IsolatePossibleRoots(f, 1e4, 1e-3);
-    // add non univariete polynomial support
+    auto intervals = IsolatePossibleRoots(f, 1e3, 1e-1);
+    // add reapeted polynomials support
+    // and is kinda slow
     my_dynamic_array<double> roots;
     for (size_t i = 0; i < intervals.get_size(); i++) {
         roots.insert_back(NewtonMethod(f, (intervals[i].first + intervals[i].second) / 2));

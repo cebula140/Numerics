@@ -7,7 +7,7 @@
 #include <utility>
 #include <cmath>
 #include <dependencies/my_map.hpp>
-double Integration::SimpsonIntegral(const Function &f, double a, double b, int accuracy) {
+double SimpsonIntegral(const Function &f, double a, double b, int accuracy) {
     /*
     * accuracy - the higher the better
     * use for 'easy' fs
@@ -50,7 +50,7 @@ std::string make_key(double a, double b)
 // memoization cache shared across recursive calls
 my_map<double> cache;
 
-double Integration::AdaptiveSimpsonIntegral(const Function& f, double a, double b, double epsilon, int depth) {
+double AdaptiveSimpsonIntegral(const Function& f, double a, double b, double epsilon, int depth) {
     const int accuracy = 16;
 
     // stop recursion at 50 levels deep, fall back to plain Simpson
@@ -90,9 +90,12 @@ double Integration::AdaptiveSimpsonIntegral(const Function& f, double a, double 
         return result;
     }
 
-    result = Integration::AdaptiveSimpsonIntegral(f, a, m, epsilon, depth + 1) + Integration::AdaptiveSimpsonIntegral(f, m, b, epsilon, depth + 1);
+    result = AdaptiveSimpsonIntegral(f, a, m, epsilon, depth + 1) + AdaptiveSimpsonIntegral(f, m, b, epsilon, depth + 1);
 
     cache.insert_slot(key, result);
 
     return result;
+}
+double Integration::Integrate(const Function& f, double a, double b, double epsilon, int depth) {
+    return AdaptiveSimpsonIntegral(f, a, b, epsilon, depth);
 }
